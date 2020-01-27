@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Travel Blog</title> 
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app" v-cloak>
+    <v-app id="inspire">
+
+      <v-card  class="overflow-hidden">
+        <v-app-bar
+          absolute
+          color="#6A76AB"
+          dark
+          shrink-on-scroll
+          src="https://picsum.photos/1920/1080?random"
+        >
+          <template v-slot:img="{ props }">
+            <v-img
+              v-bind="props"
+              gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
+            ></v-img>
+          </template>
+          <v-toolbar-title>Сайт о путешествиях и интересных местах</v-toolbar-title>
+        
+          <v-tabs
+            slot="extension"
+            v-model="tabs"
+            align-with-title
+            background-color="transparent" 
+          >
+            <v-tab>HOME</v-tab>
+            <v-tab>TRAVEL</v-tab>
+            <v-tab>PHOTOS</v-tab>
+            <v-tab>CONTACTS</v-tab>
+          </v-tabs>
+      </v-app-bar>
+
+                  <!-- HOME -->
+
+        <v-tabs-items v-model="tabs">
+          <v-tab-item>
+                <v-card flat>
+                  <v-container 
+              style="height: 2700">
+                <v-content 
+                  class="text-center"
+                  style="margin-top: 230px;">
+                    <v-card
+                      class="mx-auto"
+                      max-width="1500"
+                    >
+                      <v-container fluid >
+                          <v-row dense>
+                            <v-col
+                              v-for="card in cards"
+                              :key="card.title"
+                              :cols="card.flex" 
+                            >
+                              <v-card>
+                                <v-img
+                                  :src="card.src"
+                                  class="white--text align-end"
+                                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                                  height="400px"
+                                >
+                                  <v-card-title v-text="card.title"></v-card-title>
+                                </v-img>
+                    
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn icon>
+                                    <v-icon>mdi-heart</v-icon>
+                                  </v-btn>
+                                    <v-btn
+                                      color="blue-grey"
+                                      text
+                                      :href="card.href"
+                                      target="_blank"
+                                    >
+                                      Explore
+                                    </v-btn>
+                                  
+                    
+                                  <v-btn icon>
+                                    <v-icon>mdi-share-variant</v-icon>
+                                  </v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                    </v-card>
+                  </v-content>
+                </v-container>
+              </v-card>
+            </v-tab-item>
+
+
+          <!-- TRAVEL -->
+
+          <v-tab-item>
+            <v-card  style="margin-top: 230px;">
+              <v-card-title class="headline">Follow us</v-card-title>
+              <v-card-text>
+                <p>
+                  Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
+                </p>
+    
+                <p class="mb-0">
+                  Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
+                </p>
+
+                <v-card
+                  flat
+                  tile
+                >
+                  
+  
+              <v-container
+                v-for="type in types"
+                :key="type"
+                class="grey lighten-4"
+                fluid
+              >
+                <v-subheader>{{ type }}</v-subheader>
+          
+                <v-row>
+                  <v-spacer></v-spacer>
+                  <v-col
+                    v-for="img in imgs"
+                    :key="img"
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-card>
+                      <v-img
+                        :src="`https://picsum.photos/800/1200?image=${getImage()}`"
+                        height="300px"
+                      >
+                        <span
+                          class="headline white--text pl-4 pt-4"
+                          v-text="img.title"
+                        ></span>
+                      </v-img>
+          
+                      <v-card-actions class="white justify-center">
+                        <v-btn
+                          v-for="(social, i) in socials"
+                          :key="i"
+                          :color="social.color"
+                          class="white--text"
+                          fab
+                          icon
+                          small
+                        >
+                          <v-icon>{{ social.icon }}</v-icon>
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-card-text>
+        </v-card>
+       </v-tab-item>
+
+
+
+          <!-- PHOTOS -->
+          <v-tab-item>
+            <v-card flat style="margin-top: 230px; margin-bottom: 50px;">
+              <v-card-title class="headline">PHOTOS</v-card-title>
+              <v-card-text>
+                <p>
+                  Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
+                </p>
+    
+                <p class="mb-0">
+                  Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
+                </p>
+                <template>
+                  <v-carousel hide-delimiters>
+                    <v-carousel-item
+                    
+                    class="white--text align-end"
+                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                    height="400px"
+                      v-for="(item,i) in items"
+                      :key="i"
+                      :src="item.src"
+                    ></v-carousel-item>
+                  </v-carousel>
+                </template>
+
+                
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+
+
+          <!-- CONTACTS -->
+
+          <v-tab-item>
+            <v-card flat style="margin-top: 230px;">
+              <v-card-title class="headline"></v-card-title>
+              <v-card-text>
+                <section>
+                  <v-container grid-list-xl>
+                    <v-layout row wrap justify-center class="my-12">
+                      <v-flex xs12 sm4>
+                        <v-card flat class="transparent">
+                          <v-card-title primary-title class="layout justify-center">
+                            <div class="headline">Информация о компании</div>
+                          </v-card-title>
+                          <v-card-text>
+                           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam doloremque, alias unde delectus, repellat atque sequi fuga perspiciatis libero quia reprehenderit, asperiores odit dolor exercitationem recusandae nihil. At, culpa tenetur?
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                      <v-flex xs12 sm4 offset-sm1>
+                        <v-card flat class="transparent">
+                          <v-card-title primary-title class="layout justify-center">
+                            <div class="headline">Наши контакты</div>
+                          </v-card-title>
+                          <v-card-text>
+                            Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+                          </v-card-text>
+                          <v-list class="transparent">
+                            <v-list-item>
+                              <v-list-item-action>
+                                <v-icon class="grey--text text--dark-2">mdi-phone</v-icon>
+                              </v-list-item-action>
+                              <v-list-item-content>
+                                <v-list-item-title>+7-921-123-45-67</v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                              <v-list-item-action>
+                                <v-icon class="grey--text text--dark-2">mdi-map-marker</v-icon>
+                              </v-list-item-action>
+                              <v-list-item-content>
+                                <v-list-item-title>Singapore</v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                              <v-list-item-action>
+                                <v-icon class="grey--text text--dark-2">mdi-email</v-icon>
+                              </v-list-item-action>
+                              <v-list-item-content>
+                                <v-list-item-title>mariamaximycheva@gmail.com</v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+                          </v-list>
+                        </v-card>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </section>
+
+               <v-card
+                class="pa-4"
+                flat
+                height="300px"
+                img="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+              >
+                <v-toolbar
+                  dense
+                  floating
+                >
+                  <v-text-field
+                    hide-details
+                    prepend-icon="search"
+                    single-line
+                  ></v-text-field>
+            
+                  <v-btn icon>
+                    
+                  </v-btn>
+            
+                  <v-btn icon>
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </v-toolbar>
+              </v-card>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
+
+
+
+                 <!-- FOOTER -->
+
+                 <v-footer  default color="blue-grey darken-4">
+                  <v-layout  row wrap align-center>
+                    <v-flex xs9>
+                      <div class="py-12 white--text text-center">
+                        {{ new Date().getFullYear() }} — Made with
+                        <v-icon class="white--text">mdi-heart</v-icon>
+                        <a href="https://github.com/Mary188" target="_blank">Mary Maximycheva</a>
+                        
+                      </div>
+                    </v-flex>
+                    <base-btn
+                      title="Go to top"
+                      @click="$vuetify.goTo(0)"
+                      >
+                      <v-icon>mdi-chevron-up</v-icon>
+                    </base-btn>
+                  </v-layout>
+                </v-footer>
+
+    </v-app>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <!-- <script src="https://unpkg.com/vuex"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+
+
+  
+  
+
+<script>
+  new Vue({
+    el: '#app',
+    vuetify: new Vuetify(),
+    data () {
+      return {
+        tabs: null,
+        cards: [
+            { title: 'Халльштатт - очаровательная община в Западной Австрии', src: 'https://images.unsplash.com/photo-1520503922584-590e8f7a90d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80', href: 'https://traveller-eu.ru/galshtat', flex: 12 },
+
+            { title: 'Непал приглашает в гости', src: 'https://images.unsplash.com/photo-1536028943632-1b302c2761b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2059&q=80', href:'http://discovery-russia.ru/news/nepal-priglashaet-v-gosti.html', flex: 6 },
+
+            { title: 'Страна фантазий', src: 'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80', href: 'http://discovery-russia.ru/news/strana-fantazij.html', flex: 6 },
+
+            { title: 'Древний город инков', src: 'https://images.unsplash.com/photo-1533747915798-580fdb23c56f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1932&q=80', href: 'http://discovery-russia.ru/south-america/peru/', flex: 12 },
+
+            { title: 'Cappadocia', src: 'https://images.unsplash.com/photo-1564665759044-959473395029?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80', href: 'https://traveller-eu.ru/fotoday/kappadokiya-2019', flex: 12 },
+
+            { title: '8 мест Европы для отдыха без туристических толп', src: 'https://images.unsplash.com/photo-1542379950-b3fc716c16f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80', href: 'https://traveller-eu.ru/journal/8-mest-evropy-dlya-otdykha-bez', flex: 6 },
+
+            { title: 'Самые дорогие и дешёвые города мира', src: 'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80', href: 'https://traveller-eu.ru/journal/samye-dorogie-i-deshyovye-goroda-mira', flex: 6 },
+        ],
+        items: [
+            {src: 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',},
+            {
+              src: 'https://images.unsplash.com/photo-1461770354136-8f58567b617a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+            },
+            {
+              src: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80',
+            },
+            {
+              src: 'https://images.unsplash.com/photo-1424296308064-1eead03d1ad9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+            },
+            {
+              src: 'https://images.unsplash.com/photo-1542919242-b32f2a7bce8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80',
+            },
+            {
+              src: 'https://images.unsplash.com/photo-1499002238440-d264edd596ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+            },
+            {
+              src: 'https://images.unsplash.com/photo-1543811547-2fc2bd7b64e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80',
+            },
+    ],
+
+    types: ['Places to Be', 'Places to See'],
+    imgs: ['Nature', 'Food', 'Finest'],
+    socials: [
+    {
+        icon: 'fab fa-youtube',
+        color: 'red lighten-3',
+      },
+      {
+        icon: 'fab fa-facebook',
+        color: 'indigo',
+      },
+      {
+        icon: 'fab fa-linkedin',
+        color: 'cyan darken-1',
+      },
+      {
+        icon: 'fab fa-instagram',
+        color: 'red lighten-3',
+      },
+      {
+        icon: 'fab fa-reddit',
+        color: 'green lighten-3',
+      },
+      {
+        icon: 'fab fa-vk',
+        color: 'indigo',
+      },
+      {
+        icon: 'fab fa-pinterest',
+        color: 'red lighten-3',
+      },
+      
+    ],
+
+        }
+    },
+
+    methods: {
+    getImage () {
+      const min = 550
+      const max = 560
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+  },
+})
+
+
+  </script>
+
+
+
+
+</body>
